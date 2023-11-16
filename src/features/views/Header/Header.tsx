@@ -22,7 +22,7 @@ const Header = () => {
           variant="paragraph"
           style={{ color: colors.text.secondary }}
         >
-          {lengthOfTasks} {lengthOfTasks === 1 ? "tasks" : "task"}
+          {lengthOfTasks} {lengthOfTasks === 1 ? "task" : "tasks"}
         </Typography>
         <Button disabled={true}>Add new task</Button>
         <Button
