@@ -1,12 +1,13 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "src/store";
 import { Button, Card, Typography } from "src/components";
-import { clearTasks, taskLength } from "src/slices/task.slice";
+import { deleteAllTasks, taskLength } from "src/slices";
 import colors from "src/themes/colors";
 import { StyledContainer } from "./Header.styled";
 
 const Header = () => {
   const taskLengthh = useSelector(taskLength);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <Card>
@@ -18,7 +19,7 @@ const Header = () => {
           {taskLengthh} {taskLengthh > 1 ? "tasks" : "task"}
         </Typography>
         <Button>Add new task</Button>
-        <Button variant="secondary" onClick={() => dispatch(clearTasks())}>
+        <Button variant="secondary" onClick={() => dispatch(deleteAllTasks())}>
           Clear completed
         </Button>
       </StyledContainer>

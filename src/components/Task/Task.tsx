@@ -1,17 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "src/store";
 import { Category, Typography } from "..";
 import { StyledTask } from "./Task.styled";
-import { completeTask } from "../../slices/task.slice";
+import { endTask } from "src/slices";
+
 
 interface TaskProps {
-  id: number;
+  id: string;
   task: string;
   variant: string;
   categoryText: string;
 }
 
 const Task = ({ id, task, variant, categoryText }: TaskProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <StyledTask>
@@ -19,7 +20,7 @@ const Task = ({ id, task, variant, categoryText }: TaskProps) => {
         <button
           style={{ width: "30px", height: "30px", backgroundColor: "green" }}
           onClick={() => {
-            dispatch(completeTask({ id: id }));
+            dispatch(endTask(id));
             console.log(id);
           }}
         />
