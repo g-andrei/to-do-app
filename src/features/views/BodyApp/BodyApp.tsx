@@ -22,7 +22,6 @@ const Body = () => {
   };
 
   const filteredTasks = allTasks.filter(filterTasks);
-  // console.log(filteredTasks);
 
   return (
     <Card>

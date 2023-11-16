@@ -44,11 +44,22 @@ export function endTask(id: string) {
     dispatch(completeTask({ id: id }));
   };
 }
+export function clearCompletedTasks() {
+  return (dispatch: Dispatch<AnyAction>, getState: () => RootState) => {
+    const state = getState();
+    const updatedTasks = state.task.data.filter(
+      (task) => task.status !== "Completed"
+    );
+
+    localStorage.setItem("todos", JSON.stringify(updatedTasks));
+    dispatch(deleteCompleted());
+  };
+}
 
 export function deleteAllTasks() {
   return (dispatch: Dispatch<AnyAction>) => {
-    localStorage.clear();
-    dispatch(clearTasks());
+    localStorage.removeItem("todos");
+    dispatch(clearAllTasks());
   };
 }
 
@@ -80,7 +91,12 @@ export const taskSlice = createSlice({
         }),
       ],
     }),
-    clearTasks: (state) => ({
+    deleteCompleted: (state) => ({
+      ...state,
+      loading: false,
+      data: state.data.filter((task) => task.status !== "Completed"),
+    }),
+    clearAllTasks: (state) => ({
       ...state,
       loading: false,
       data: [],
@@ -88,10 +104,17 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { getTasks, addTask, completeTask, clearTasks } =
-  taskSlice.actions;
+export const {
+  getTasks,
+  addTask,
+  completeTask,
+  deleteCompleted,
+  clearAllTasks,
+} = taskSlice.actions;
 
 export const taskValue = (state: RootState) => state.task.data;
-export const taskLength = (state: RootState) => state.task.data?.length;
+export const taskLength = (state: RootState) => state.task.data.length;
+export const completedTaskLength = (state: RootState) =>
+  state.task.data.filter((task) => task.status === "Completed").length;
 
 export default taskSlice.reducer;

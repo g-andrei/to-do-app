@@ -3,7 +3,6 @@ import { Category, Typography } from "..";
 import { StyledTask } from "./Task.styled";
 import { endTask } from "src/slices";
 
-
 interface TaskProps {
   id: string;
   task: string;
@@ -21,7 +20,6 @@ const Task = ({ id, task, variant, categoryText }: TaskProps) => {
           style={{ width: "30px", height: "30px", backgroundColor: "green" }}
           onClick={() => {
             dispatch(endTask(id));
-            console.log(id);
           }}
         />
         <Typography variant="paragraph">{task}</Typography>

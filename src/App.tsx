@@ -78,6 +78,9 @@ function App() {
 
           <Header />
           <Body />
+          <Typography variant="paragraph">
+            This project is still in progress! Thank you for understanding.
+          </Typography>
         </div>
       </div>
     </Theme>

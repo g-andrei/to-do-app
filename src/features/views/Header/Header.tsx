@@ -1,12 +1,18 @@
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "src/store";
 import { Button, Card, Typography } from "src/components";
-import { deleteAllTasks, taskLength } from "src/slices";
+import {
+  clearCompletedTasks,
+  completedTaskLength,
+  deleteAllTasks,
+  taskLength,
+} from "src/slices";
 import colors from "src/themes/colors";
 import { StyledContainer } from "./Header.styled";
 
 const Header = () => {
-  const taskLengthh = useSelector(taskLength);
+  const lengthOfTasks = useSelector(taskLength);
+  const lengthOfCompletedTasks = useSelector(completedTaskLength);
   const dispatch = useAppDispatch();
 
   return (
@@ -16,11 +22,22 @@ const Header = () => {
           variant="paragraph"
           style={{ color: colors.text.secondary }}
         >
-          {taskLengthh} {taskLengthh > 1 ? "tasks" : "task"}
+          {lengthOfTasks} {lengthOfTasks === 1 ? "tasks" : "task"}
         </Typography>
-        <Button>Add new task</Button>
-        <Button variant="secondary" onClick={() => dispatch(deleteAllTasks())}>
+        <Button disabled={true}>Add new task</Button>
+        <Button
+          variant="secondary"
+          onClick={() => dispatch(clearCompletedTasks())}
+          disabled={lengthOfCompletedTasks === 0 ? true : false}
+        >
           Clear completed
+        </Button>
+        <Button
+          variant="secondary"
+          onClick={() => dispatch(deleteAllTasks())}
+          disabled={lengthOfTasks === 0 ? true : false}
+        >
+          Clear all tasks
         </Button>
       </StyledContainer>
     </Card>
