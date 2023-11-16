@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { Button, Card, Task } from "src/components";
-import { taskValue } from "src/slices/task.slice";
+import { taskValue } from "src/slices";
 import { StyledBodyAppContaienr } from "./BodyApp.styled";
 
 const Body = () => {
@@ -22,19 +22,24 @@ const Body = () => {
   };
 
   const filteredTasks = allTasks.filter(filterTasks);
+  // console.log(filteredTasks);
 
   return (
     <Card>
       <StyledBodyAppContaienr>
-        {filteredTasks.map((task) => (
-          <Task
-            id={task.id}
-            task={task.task}
-            variant={task.status}
-            categoryText={task.status}
-            key={task.id}
-          />
-        ))}
+        {filteredTasks?.length ? (
+          filteredTasks.map((task) => (
+            <Task
+              id={task.id}
+              task={task.task}
+              variant={task.status}
+              categoryText={task.status}
+              key={task.id}
+            />
+          ))
+        ) : (
+          <div>Empty</div>
+        )}
       </StyledBodyAppContaienr>
       <div style={{ textAlign: "center" }}>
         {["Active", "All", "Completed"].map((filterOption) => (

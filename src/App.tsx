@@ -1,19 +1,20 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import Theme from "./themes";
 import { Button, InputText, Typography } from "./components";
 import Header from "./features/views/Header/Header";
 import { Body } from "./features/views";
 import { useSelector } from "react-redux";
 import {
+  addNewTask,
+  getTasks,
   formStatus,
   updateAddTaskButton,
   updateErrorInput,
-} from "./slices/form.slice";
-import { addTask } from "./slices/task.slice";
+} from "./slices";
+import { useAppDispatch } from "./store";
 
 function App() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const { buttonStatus, errorInput } = useSelector(formStatus);
   const [task, setTask] = useState("");
   const randomId = crypto.randomUUID();
@@ -36,6 +37,11 @@ function App() {
       dispatch(updateErrorInput(true));
     }
   };
+
+  useEffect(() => {
+    const todos = JSON.parse(localStorage.getItem("todos")!) || [];
+    dispatch(getTasks({ data: todos }));
+  }, [dispatch]);
 
   return (
     <Theme>
@@ -61,7 +67,7 @@ function App() {
           />
           <Button
             onClick={() => {
-              dispatch(addTask({ data: newTask() }));
+              dispatch(addNewTask(newTask()));
               dispatch(updateAddTaskButton(true));
               setTask("");
             }}

@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Dispatch } from "react";
+import { AnyAction, createSlice } from "@reduxjs/toolkit";
 import { RootState } from "../store";
 
 export interface Task {
-  id: number;
+  id: string;
   task: string;
   status: string;
 }
@@ -16,81 +17,55 @@ interface taskState {
 const initialState: taskState = {
   loading: false,
   error: false,
-  data: [
-    {
-      id: 1,
-      task: "Memorize the fifty states and their capitals ",
-      status: "Urgent",
-    },
-    { id: 2, task: "Test something", status: "Completed" },
-    { id: 3, task: "Test ", status: "Urgent" },
-    {
-      id: 4,
-      task: "Memorize the fifty states and their capitals",
-      status: "Important",
-    },
-    {
-      id: 5,
-      task: "Memorize the fifty states and their capitals",
-      status: "Later",
-    },
-    {
-      id: 6,
-      task: "Memorize the fifty states and their capitals",
-      status: "To Study",
-    },
-    {
-      id: 7,
-      task: "Memorize the fifty states and their capitals",
-      status: "Urgent",
-    },
-    {
-      id: 8,
-      task: "Memorize the fifty states and their capitals",
-      status: "Later",
-    },
-    {
-      id: 9,
-      task: "Memorize the fifty states and their capitals ",
-      status: "Urgent",
-    },
-    { id: 10, task: "Test something", status: "Completed" },
-    { id: 11, task: "Test ", status: "Urgent" },
-    {
-      id: 12,
-      task: "Memorize the fifty states and their capitals",
-      status: "Important",
-    },
-    {
-      id: 13,
-      task: "Memorize the fifty states and their capitals",
-      status: "Later",
-    },
-    {
-      id: 14,
-      task: "Memorize the fifty states and their capitals",
-      status: "To Study",
-    },
-    {
-      id: 15,
-      task: "Memorize the fifty states and their capitals",
-      status: "Urgent",
-    },
-    {
-      id: 16,
-      task: "Memorize the fifty states and their capitals",
-      status: "Later",
-    },
-  ],
+  data: [],
 };
+
+export function addNewTask(data: Task) {
+  return (dispatch: Dispatch<AnyAction>) => {
+    const existingTodos = JSON.parse(localStorage.getItem("todos")!) || [];
+    existingTodos.push(data);
+    localStorage.setItem("todos", JSON.stringify(existingTodos));
+
+    dispatch(addTask({ data: data }));
+  };
+}
+
+export function endTask(id: string) {
+  return (dispatch: Dispatch<AnyAction>) => {
+    const existingTodos = JSON.parse(localStorage.getItem("todos")!) || [];
+    const updatedTodos = existingTodos.map((task: Task) => {
+      if (task.id === id) {
+        return { ...task, status: "Completed" };
+      }
+      return task;
+    });
+    localStorage.setItem("todos", JSON.stringify(updatedTodos));
+
+    dispatch(completeTask({ id: id }));
+  };
+}
+
+export function deleteAllTasks() {
+  return (dispatch: Dispatch<AnyAction>) => {
+    localStorage.clear();
+    dispatch(clearTasks());
+  };
+}
 
 export const taskSlice = createSlice({
   name: "task",
   initialState,
   reducers: {
+    getTasks: (state, { payload: { data } }) => {
+      return {
+        ...state,
+        loading: false,
+        data: data,
+      };
+    },
     addTask: (state, { payload: { data } }) => ({
       ...state,
-      loading: true,
+      loading: false,
       data: [...state.data, data],
     }),
     completeTask: (state, { payload: { id } }) => ({
@@ -113,9 +88,10 @@ export const taskSlice = createSlice({
   },
 });
 
-export const { addTask, completeTask, clearTasks } = taskSlice.actions;
+export const { getTasks, addTask, completeTask, clearTasks } =
+  taskSlice.actions;
 
 export const taskValue = (state: RootState) => state.task.data;
-export const taskLength = (state: RootState) => state.task.data.length;
+export const taskLength = (state: RootState) => state.task.data?.length;
 
 export default taskSlice.reducer;
