@@ -1,7 +1,9 @@
 import { useAppDispatch } from "src/store";
-import { Category, Typography } from "..";
+import { Category, CheckButton, Icon, Typography } from "..";
 import { StyledTask } from "./Task.styled";
 import { endTask } from "src/slices";
+import { Check } from "src/assets/icons";
+import colors from "src/themes/colors";
 
 interface TaskProps {
   id: string;
@@ -15,13 +17,14 @@ const Task = ({ id, task, variant, categoryText }: TaskProps) => {
 
   return (
     <StyledTask>
-      <div style={{ display: "flex", alignContent: "center", gap: "12px" }}>
-        <button
-          style={{ width: "30px", height: "30px", backgroundColor: "green" }}
+      <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+        <CheckButton
           onClick={() => {
             dispatch(endTask(id));
           }}
-        />
+        >
+          <Icon IconComponent={Check} color={colors.white} />
+        </CheckButton>
         <Typography variant="paragraph">{task}</Typography>
       </div>
       <Category variant={variant} categoryText={categoryText} />

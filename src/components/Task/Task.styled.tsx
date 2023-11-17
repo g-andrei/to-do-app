@@ -1,10 +1,9 @@
 import styled, { css } from "styled-components";
 
 export const StyledTask = styled.div(({ theme }) => {
-  const { sizes, spacings } = theme;
+  const { spacings } = theme;
   return css`
-    /* width: ${sizes.main.s634}; */
-    padding: ${spacings.main.s22} ${spacings.main.s20};
+    padding: ${spacings.main.s22} ${spacings.main.s8};
     display: flex;
     justify-content: space-between;
   `;

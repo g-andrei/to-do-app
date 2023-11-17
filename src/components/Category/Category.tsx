@@ -1,9 +1,7 @@
-// import { CategoryType } from ".";
 import { Typography } from "..";
 import { StyledCategory } from "./Category.styled";
 
 interface CategoryProps {
-  // variant: CategoryType;
   variant: string;
   categoryText: string;
 }

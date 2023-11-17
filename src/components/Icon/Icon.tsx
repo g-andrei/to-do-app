@@ -1,4 +1,3 @@
-// import { FunctionComponent, SVGProps } from "react";
 import styled from "styled-components";
 
 interface IconProps {
