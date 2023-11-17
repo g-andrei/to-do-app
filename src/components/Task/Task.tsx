@@ -21,7 +21,6 @@ const Task = ({ id, task, variant, categoryText }: TaskProps) => {
         <CheckButton
           onClick={() => {
             dispatch(endTask(id));
-            console.log(`test log`);
           }}
         >
           <Icon IconComponent={Check} color={colors.white} />
