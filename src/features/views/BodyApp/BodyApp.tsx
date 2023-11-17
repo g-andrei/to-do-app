@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { Button, Card, Task } from "src/components";
+import { Button, Card, Task, Typography } from "src/components";
 import { taskValue } from "src/slices";
 import { StyledBodyAppContaienr } from "./BodyApp.styled";
 
@@ -25,8 +25,18 @@ const Body = () => {
 
   return (
     <Card>
-      <StyledBodyAppContaienr>
-        {filteredTasks?.length ? (
+      <StyledBodyAppContaienr
+        style={
+          !filteredTasks.length
+            ? {
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }
+            : {}
+        }
+      >
+        {filteredTasks.length ? (
           filteredTasks.map((task) => (
             <Task
               id={task.id}
@@ -37,7 +47,11 @@ const Body = () => {
             />
           ))
         ) : (
-          <div>Empty</div>
+          <Typography variant="paragraph">
+            {filter === "Completed"
+              ? `You have no completed tasks.`
+              : `You have no task to fulfill.`}
+          </Typography>
         )}
       </StyledBodyAppContaienr>
       <div style={{ textAlign: "center" }}>
