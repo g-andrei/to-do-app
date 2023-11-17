@@ -2,6 +2,7 @@ import Button from "./Button/Button";
 import Card from "./Card/Card";
 import Category from "./Category/Category";
 import { CategoryType } from "./Category/constants";
+import CheckButton from "./CheckButton/CheckButton";
 import Icon from "./Icon/Icon";
 import InputText from "./InputText/InputText";
 import Modal from "./Modal/Modal";
@@ -13,6 +14,7 @@ export {
   Card,
   Category,
   CategoryType,
+  CheckButton,
   Icon,
   InputText,
   Modal,
