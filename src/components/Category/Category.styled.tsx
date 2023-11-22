@@ -3,10 +3,11 @@ import { CategoryType } from "..";
 
 interface StyledCategoryProps {
   variant: string;
+  isSelected?: boolean;
 }
 
 export const StyledCategory = styled.span<StyledCategoryProps>(
-  ({ variant, theme }) => {
+  ({ variant, isSelected, theme }) => {
     const { colors, spacings, sizes } = theme;
 
     const getBackgroundColor = (variant: string) => {
@@ -38,6 +39,7 @@ export const StyledCategory = styled.span<StyledCategoryProps>(
       border-radius: ${spacings.main.s10};
       padding: ${spacings.main.s6} ${spacings.main.s22};
       background-color: ${getBackgroundColor(variant)};
+      outline: ${isSelected && "1px solid white"};
     `;
   }
 );

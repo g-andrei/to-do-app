@@ -8,5 +8,6 @@ export const StyledModalContainer = styled.div(({ theme }) => {
     border-radius: ${spacings.main.s10};
     border: ${spacings.main.s2} solid ${colors.white};
     background: ${colors.surfaces.cardBackground};
+    z-index: 2;
   `;
 });

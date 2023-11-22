@@ -18,6 +18,7 @@ const colors: Colors = {
   },
   surfaces: {
     appBackground: "#1C273C",
+    addEventBackground: "#0e141e",
     cardBackground: "#354259",
     shadow: "#44A0A0",
     button: "#44A0A0",

@@ -5,6 +5,7 @@ import {
   clearCompletedTasks,
   completedTaskLength,
   deleteAllTasks,
+  openAddEventModal,
   taskLength,
 } from "src/slices";
 import colors from "src/themes/colors";
@@ -24,7 +25,9 @@ const Header = () => {
         >
           {lengthOfTasks} {lengthOfTasks === 1 ? "task" : "tasks"}
         </Typography>
-        <Button disabled={true}>Add new task</Button>
+        <Button onClick={() => dispatch(openAddEventModal(true))}>
+          Add new task
+        </Button>
         <Button
           variant="secondary"
           onClick={() => dispatch(clearCompletedTasks())}
