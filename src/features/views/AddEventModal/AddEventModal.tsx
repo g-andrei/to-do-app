@@ -34,16 +34,10 @@ const AddEvent = () => {
   };
 
   const handleSubmit = () => {
-    if (selectedCategory) {
-      dispatch(addNewTask(newTask()));
-      dispatch(updateAddTaskButton(true));
-      setTask("");
-      setSelectedCategory("");
-      dispatch(openAddEventModal(false));
-    } else {
-      alert("Please select a category");
-      return false;
-    }
+    dispatch(addNewTask(newTask()));
+    setTask("");
+    setSelectedCategory("");
+    dispatch(openAddEventModal(false));
   };
 
   const categorys = [
@@ -109,7 +103,7 @@ const AddEvent = () => {
             <Button
               type="submit"
               onClick={handleSubmit}
-              disabled={buttonStatus}
+              disabled={buttonStatus || !selectedCategory}
             >
               SUBMIT TASK
             </Button>
