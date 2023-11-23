@@ -4,11 +4,13 @@ import { RootState } from "src/store";
 interface formState {
   buttonStatus: boolean;
   errorInput: boolean;
+  isAddEventModalOpend: boolean;
 }
 
 const initialState: formState = {
   buttonStatus: true,
   errorInput: false,
+  isAddEventModalOpend: false,
 };
 
 export const formState = createSlice({
@@ -21,10 +23,13 @@ export const formState = createSlice({
     updateErrorInput: (state, action) => {
       state.errorInput = action.payload;
     },
+    openAddEventModal: (state, action) => {
+      state.isAddEventModalOpend = action.payload;
+    },
   },
 });
 
-export const { updateAddTaskButton, updateErrorInput } = formState.actions;
+export const { updateAddTaskButton, updateErrorInput, openAddEventModal} = formState.actions;
 
 export const formStatus = (state: RootState) => state.editFromState;
 

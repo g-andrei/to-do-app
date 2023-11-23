@@ -1,7 +1,9 @@
 import styled, { css } from "styled-components";
 import colors from "src/themes/colors";
+import { ButtonHTMLAttributes } from "react";
 
-export interface StyledButtonProps  {
+export interface StyledButtonProps
+  extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: string;
   selected?: boolean;
   disabled?: boolean;

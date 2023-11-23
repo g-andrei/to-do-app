@@ -1,42 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Theme from "./themes";
-import { Button, InputText, Typography } from "./components";
+import { Typography } from "./components";
 import Header from "./features/views/Header/Header";
 import { Body } from "./features/views";
 import { useSelector } from "react-redux";
-import {
-  addNewTask,
-  getTasks,
-  formStatus,
-  updateAddTaskButton,
-  updateErrorInput,
-} from "./slices";
+import { getTasks, formStatus } from "./slices";
 import { useAppDispatch } from "./store";
+import AddEvent from "./features/views/AddEventModal/AddEventModal";
 
 function App() {
   const dispatch = useAppDispatch();
-  const { buttonStatus, errorInput } = useSelector(formStatus);
-  const [task, setTask] = useState("");
-  const randomId = crypto.randomUUID();
-
-  const newTask = () => {
-    const nextTask = {
-      id: randomId,
-      task: task,
-      status: "Later",
-    };
-    return nextTask;
-  };
-
-  const handleTextChange = (value: string) => {
-    if (value !== "") {
-      dispatch(updateAddTaskButton(false));
-      dispatch(updateErrorInput(false));
-    } else {
-      dispatch(updateAddTaskButton(true));
-      dispatch(updateErrorInput(true));
-    }
-  };
+  const { isAddEventModalOpend } = useSelector(formStatus);
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos")!) || [];
@@ -45,36 +19,35 @@ function App() {
 
   return (
     <Theme>
-      <div style={{ margin: "50vh auto 0", transform: "translateY(-50%)" }}>
+      <div
+        style={{
+          display: "grid",
+          backgroundColor: isAddEventModalOpend ? "#0e141e" : "#1C273C",
+        }}
+      >
+        {isAddEventModalOpend && <AddEvent />}
+
         <div
           style={{
+            margin: "50vh auto 0",
+            transform: "translateY(-50%)",
+            filter: isAddEventModalOpend ? "blur(4px)" : "blur(0)",
             gap: "10px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
           }}
         >
-          <Typography variant="title">PERSONAL TASK MANAGER</Typography>
-
-          <InputText
-            value={task}
-            placeholder="Task description..."
-            errorState={errorInput}
-            onChange={(text) => {
-              setTask(text.target.value);
-              handleTextChange(text.target.value);
+          <Typography
+            variant="title"
+            style={{
+              textTransform: "uppercase",
+              marginBottom: "114px",
+              marginTop: "80px",
             }}
-          />
-          <Button
-            onClick={() => {
-              dispatch(addNewTask(newTask()));
-              dispatch(updateAddTaskButton(true));
-              setTask("");
-            }}
-            disabled={buttonStatus}
           >
-            +
-          </Button>
+            personal task manager
+          </Typography>
 
           <Header />
           <Body />
