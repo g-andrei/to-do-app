@@ -11,7 +11,6 @@ import AddEvent from "./features/views/AddEventModal/AddEventModal";
 function App() {
   const dispatch = useAppDispatch();
   const { isAddEventModalOpend } = useSelector(formStatus);
-  // console.log(isAddEventModalOpend);
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem("todos")!) || [];
@@ -39,7 +38,14 @@ function App() {
             alignItems: "center",
           }}
         >
-          <Typography variant="title" style={{ textTransform: "uppercase" }}>
+          <Typography
+            variant="title"
+            style={{
+              textTransform: "uppercase",
+              marginBottom: "114px",
+              marginTop: "80px",
+            }}
+          >
             personal task manager
           </Typography>
 
