@@ -35,6 +35,7 @@ const AddEvent = () => {
 
   const handleSubmit = () => {
     dispatch(addNewTask(newTask()));
+    dispatch(updateAddTaskButton(true));
     setTask("");
     setSelectedCategory("");
     dispatch(openAddEventModal(false));
