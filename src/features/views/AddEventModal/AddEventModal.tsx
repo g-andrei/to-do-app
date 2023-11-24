@@ -41,7 +41,7 @@ const AddEvent = () => {
     dispatch(openAddEventModal(false));
   };
 
-  const categorys = [
+  const categories = [
     { category: "Urgent" },
     { category: "Important" },
     { category: "Later" },
@@ -56,7 +56,7 @@ const AddEvent = () => {
           style={{
             textAlign: "center",
             textTransform: "uppercase",
-            margin: `${spacings.main.s22} 0 ${spacings.main.s18} `,
+            margin: `${spacings.main.s22} 0 ${spacings.main.s18}`,
           }}
         >
           create tesk
@@ -91,7 +91,7 @@ const AddEvent = () => {
                 gap: "20px",
               }}
             >
-              {categorys.map((categoryItem) => (
+              {categories.map((categoryItem) => (
                 <Category
                   key={categoryItem.category}
                   variant={categoryItem.category}
@@ -101,13 +101,21 @@ const AddEvent = () => {
                 />
               ))}
             </div>
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              disabled={buttonStatus || !selectedCategory}
-            >
-              SUBMIT TASK
-            </Button>
+            <div style={{ display: "flex" }}>
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                disabled={buttonStatus || !selectedCategory}
+              >
+                SUBMIT TASK
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => dispatch(openAddEventModal(false))}
+              >
+                CANCEL
+              </Button>
+            </div>
           </div>
         </form>
       </Modal>
