@@ -101,13 +101,21 @@ const AddEvent = () => {
                 />
               ))}
             </div>
-            <Button
-              type="submit"
-              onClick={handleSubmit}
-              disabled={buttonStatus || !selectedCategory}
-            >
-              SUBMIT TASK
-            </Button>
+            <div style={{ display: "flex" }}>
+              <Button
+                type="submit"
+                onClick={handleSubmit}
+                disabled={buttonStatus || !selectedCategory}
+              >
+                SUBMIT TASK
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={() => dispatch(openAddEventModal(false))}
+              >
+                CANCEL
+              </Button>
+            </div>
           </div>
         </form>
       </Modal>
