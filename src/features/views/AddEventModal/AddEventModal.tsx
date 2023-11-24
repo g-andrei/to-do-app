@@ -41,7 +41,7 @@ const AddEvent = () => {
     dispatch(openAddEventModal(false));
   };
 
-  const categorys = [
+  const categories = [
     { category: "Urgent" },
     { category: "Important" },
     { category: "Later" },
@@ -56,7 +56,7 @@ const AddEvent = () => {
           style={{
             textAlign: "center",
             textTransform: "uppercase",
-            margin: `${spacings.main.s22} 0 ${spacings.main.s18} `,
+            margin: `${spacings.main.s22} 0 ${spacings.main.s18}`,
           }}
         >
           create tesk
@@ -91,7 +91,7 @@ const AddEvent = () => {
                 gap: "20px",
               }}
             >
-              {categorys.map((categoryItem) => (
+              {categories.map((categoryItem) => (
                 <Category
                   key={categoryItem.category}
                   variant={categoryItem.category}
