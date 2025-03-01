@@ -1,24 +1,28 @@
-import { Typography } from "..";
-import { StyledCategory } from "./Category.styled";
+import { Typography } from '..';
+import { StyledCategory } from './Category.styled';
 
 interface CategoryProps {
-  variant: string;
-  categoryText: string;
-  onClick?: () => void;
-  isSelected?: boolean;
+    variant: string;
+    categoryText: string;
+    onClick?: () => void;
+    isSelected?: boolean;
 }
 
 const Category = ({
-  variant,
-  categoryText,
-  onClick,
-  isSelected,
+    variant,
+    categoryText,
+    onClick,
+    isSelected,
 }: CategoryProps) => {
-  return (
-    <StyledCategory variant={variant} onClick={onClick} isSelected={isSelected}>
-      <Typography variant="paragraph"> {categoryText}</Typography>
-    </StyledCategory>
-  );
+    return (
+        <StyledCategory
+            variant={variant}
+            onClick={onClick}
+            isSelected={isSelected}
+        >
+            <Typography variant="paragraph"> {categoryText}</Typography>
+        </StyledCategory>
+    );
 };
 
 export default Category;

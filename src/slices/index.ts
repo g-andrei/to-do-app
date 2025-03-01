@@ -1,2 +1,2 @@
-export * from "./task.slice";
-export * from "./form.slice";
+export * from './task.slice';
+export * from './form.slice';

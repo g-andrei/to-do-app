@@ -1,11 +1,11 @@
-import { StyledModalContainer } from "./Modal.styled";
+import { StyledModalContainer } from './Modal.styled';
 
 interface ModalProps {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }
 
 const Modal = ({ children }: ModalProps) => {
-  return <StyledModalContainer>{children}</StyledModalContainer>;
+    return <StyledModalContainer>{children}</StyledModalContainer>;
 };
 
 export default Modal;

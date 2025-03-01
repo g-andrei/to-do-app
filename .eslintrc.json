@@ -1,0 +1,58 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:import/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "plugins": ["import", "prettier", "simple-import-sort"],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": true,
+                "semi": true,
+                "trailingComma": "es5",
+                "tabWidth": 2,
+                "useTabs": false
+            }
+        ],
+        "import/order": [
+            "error",
+            {
+                "groups": [
+                    ["builtin", "external"],
+                    "internal",
+                    ["sibling", "parent"],
+                    "index"
+                ],
+                "newlines-between": "always"
+            }
+        ],
+        "simple-import-sort/imports": [
+            "error",
+            {
+                "groups": [
+                    ["^react", "^@?\\w"], // grupul react și external packages
+                    ["^src/"], // importuri din fișiere interne
+                    ["^\\."] // importuri locale (sibling, parent)
+                ]
+            }
+        ],
+        "simple-import-sort/exports": "error",
+        "quotes": ["error", "single"]
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "parser": "@typescript-eslint/parser",
+            "parserOptions": {
+                "project": "./tsconfig.json"
+            },
+            "extends": [
+                "plugin:@typescript-eslint/recommended",
+                "plugin:import/recommended",
+                "plugin:prettier/recommended"
+            ]
+        }
+    ]
+}

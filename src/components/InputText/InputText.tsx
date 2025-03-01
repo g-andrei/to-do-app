@@ -1,32 +1,32 @@
-import { Error } from "src/assets/icons";
-import { Icon } from "..";
+import { TextareaHTMLAttributes } from 'react';
+import { Error } from 'src/assets/icons';
+import colors from 'src/themes/colors';
+import { Icon } from '..';
 import {
-  StyledErrorContaienr,
-  StyledInputContainer,
-  StyledInputText,
-} from "./InputText.styled";
-import colors from "src/themes/colors";
-import { TextareaHTMLAttributes } from "react";
+    StyledErrorContainer,
+    StyledInputContainer,
+    StyledInputText,
+} from './InputText.styled';
 
 interface InputText extends TextareaHTMLAttributes<HTMLInputElement> {
-  errorState: boolean;
+    errorState: boolean;
 }
 
 const InputText = ({ errorState, onChange, placeholder, value }: InputText) => {
-  return (
-    <StyledInputContainer>
-      <StyledInputText
-        placeholder={placeholder}
-        onChange={onChange}
-        value={value}
-      />
-      {errorState && (
-        <StyledErrorContaienr>
-          <Icon IconComponent={Error} color={colors.state.error} />
-        </StyledErrorContaienr>
-      )}
-    </StyledInputContainer>
-  );
+    return (
+        <StyledInputContainer>
+            <StyledInputText
+                placeholder={placeholder}
+                onChange={onChange}
+                value={value}
+            />
+            {errorState && (
+                <StyledErrorContainer>
+                    <Icon IconComponent={Error} color={colors.state.error} />
+                </StyledErrorContainer>
+            )}
+        </StyledInputContainer>
+    );
 };
 
 export default InputText;

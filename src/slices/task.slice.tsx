@@ -1,120 +1,122 @@
-import { Dispatch } from "react";
-import { AnyAction, createSlice } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { RootState, AppDispatch } from '../store';
 
 export interface Task {
-  id: string;
-  task: string;
-  status: string;
+    id: string;
+    task: string;
+    status: string;
+    previousStatus: string;
 }
 
-interface taskState {
-  loading: boolean;
-  error: boolean;
-  data: Task[];
+interface TaskState {
+    loading: boolean;
+    error: boolean;
+    data: Task[];
 }
 
-const initialState: taskState = {
-  loading: false,
-  error: false,
-  data: [],
+const initialState: TaskState = {
+    loading: false,
+    error: false,
+    data: [],
 };
 
-export function addNewTask(data: Task) {
-  return (dispatch: Dispatch<AnyAction>) => {
-    const existingTodos = JSON.parse(localStorage.getItem("todos")!) || [];
-    existingTodos.push(data);
-    localStorage.setItem("todos", JSON.stringify(existingTodos));
-
-    dispatch(addTask({ data: data }));
-  };
-}
-
-export function endTask(id: string) {
-  return (dispatch: Dispatch<AnyAction>) => {
-    const existingTodos = JSON.parse(localStorage.getItem("todos")!) || [];
-    const updatedTodos = existingTodos.map((task: Task) => {
-      if (task.id === id) {
-        return { ...task, status: "Completed" };
-      }
-      return task;
-    });
-    localStorage.setItem("todos", JSON.stringify(updatedTodos));
-
-    dispatch(completeTask({ id: id }));
-  };
-}
-export function clearCompletedTasks() {
-  return (dispatch: Dispatch<AnyAction>, getState: () => RootState) => {
-    const state = getState();
-    const updatedTasks = state.task.data.filter(
-      (task) => task.status !== "Completed"
-    );
-
-    localStorage.setItem("todos", JSON.stringify(updatedTasks));
-    dispatch(deleteCompleted());
-  };
-}
-
-export function deleteAllTasks() {
-  return (dispatch: Dispatch<AnyAction>) => {
-    localStorage.removeItem("todos");
-    dispatch(clearAllTasks());
-  };
-}
+const updateTask = (task: Task, id: string) =>
+    task.id === id
+        ? {
+              ...task,
+              status:
+                  task.status !== 'Completed'
+                      ? 'Completed'
+                      : task.previousStatus,
+              previousStatus:
+                  task.status !== 'Completed'
+                      ? task.status
+                      : task.previousStatus,
+          }
+        : task;
 
 export const taskSlice = createSlice({
-  name: "task",
-  initialState,
-  reducers: {
-    getTasks: (state, { payload: { data } }) => {
-      return {
-        ...state,
-        loading: false,
-        data: data,
-      };
+    name: 'task',
+    initialState,
+    reducers: {
+        getTasks: (state, action: PayloadAction<{ data: Task[] }>) => {
+            state.loading = false;
+            state.data = action.payload.data;
+        },
+        addTask: (state, action: PayloadAction<{ data: Task }>) => {
+            state.loading = false;
+            state.data.push(action.payload.data);
+        },
+        completeTask: (state, action: PayloadAction<{ id: string }>) => {
+            state.loading = false;
+            state.data = state.data.map((task) =>
+                updateTask(task, action.payload.id)
+            );
+        },
+        deleteCompleted: (state) => {
+            state.loading = false;
+            state.data = state.data.filter(
+                (task) => task.status !== 'Completed'
+            );
+        },
+        clearAllTasks: (state) => {
+            state.loading = false;
+            state.data = [];
+        },
     },
-    addTask: (state, { payload: { data } }) => ({
-      ...state,
-      loading: false,
-      data: [...state.data, data],
-    }),
-    completeTask: (state, { payload: { id } }) => ({
-      ...state,
-      loading: false,
-      data: [
-        ...state.data.map((task) => {
-          if (task.id === id) {
-            return { ...task, status: "Completed" };
-          }
-          return task;
-        }),
-      ],
-    }),
-    deleteCompleted: (state) => ({
-      ...state,
-      loading: false,
-      data: state.data.filter((task) => task.status !== "Completed"),
-    }),
-    clearAllTasks: (state) => ({
-      ...state,
-      loading: false,
-      data: [],
-    }),
-  },
 });
 
 export const {
-  getTasks,
-  addTask,
-  completeTask,
-  deleteCompleted,
-  clearAllTasks,
+    getTasks,
+    addTask,
+    completeTask,
+    deleteCompleted,
+    clearAllTasks,
 } = taskSlice.actions;
+
+export function addNewTask(data: Task) {
+    return (dispatch: AppDispatch) => {
+        const existingTodos = JSON.parse(localStorage.getItem('todos') || '[]');
+        existingTodos.push(data);
+        localStorage.setItem('todos', JSON.stringify(existingTodos));
+
+        dispatch(addTask({ data }));
+    };
+}
+
+export function endTask(id: string) {
+    return (dispatch: AppDispatch) => {
+        const existingTodos: Task[] = JSON.parse(
+            localStorage.getItem('todos') || '[]'
+        );
+        const updatedTodos = existingTodos.map((task) => updateTask(task, id));
+        localStorage.setItem('todos', JSON.stringify(updatedTodos));
+
+        dispatch(completeTask({ id }));
+    };
+}
+
+export function clearCompletedTasks() {
+    return (dispatch: AppDispatch, getState: () => RootState) => {
+        const state = getState();
+        const updatedTasks = state.task.data.filter(
+            (task) => task.status !== 'Completed'
+        );
+        localStorage.setItem('todos', JSON.stringify(updatedTasks));
+        dispatch(deleteCompleted());
+    };
+}
+
+export function deleteAllTasks() {
+    return (dispatch: AppDispatch) => {
+        localStorage.removeItem('todos');
+        dispatch(clearAllTasks());
+    };
+}
 
 export const taskValue = (state: RootState) => state.task.data;
 export const taskLength = (state: RootState) => state.task.data.length;
 export const completedTaskLength = (state: RootState) =>
-  state.task.data.filter((task) => task.status === "Completed").length;
+    state.task.data.filter((task) => task.status === 'Completed').length;
 
 export default taskSlice.reducer;
