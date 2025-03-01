@@ -3,5 +3,18 @@
     "cancel-uppercase": "CANCEL",
     "categories": "Categories",
     "submit-task-uppercase": "SUBMIT TASK",
-    "create-task-uppercase": "CREATE TASK"
+    "create-task-uppercase": "CREATE TASK",
+    "clear-completed": "Clear Completed",
+    "clear-all-tasks": "Clear All Tasks",
+    "task": "task",
+    "tasks": "tasks",
+    "personal-task-manager-uppercase": "PERSONAL TASK MANAGER",
+    "project-in-progress": " This project is still in progress! Thank you for understanding.",
+    "no-completed-tasks": "No completed tasks",
+    "no-tasks": "No tasks",
+    "completed": "Completed",
+    "urgent": "Urgent",
+    "important": "Important",
+    "later": "Later",
+    "to-study": "To Study"
 }

@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Typography } from './components';
 import { Body } from './features/views';
@@ -10,6 +11,7 @@ import { useAppDispatch } from './store';
 import Theme from './themes';
 
 function App() {
+    const { t } = useTranslation();
     const dispatch = useAppDispatch();
     const { isAddEventModalOpend } = useSelector(formStatus);
 
@@ -44,19 +46,17 @@ function App() {
                     <Typography
                         variant="title"
                         style={{
-                            textTransform: 'uppercase',
                             marginBottom: '114px',
                             marginTop: '80px',
                         }}
                     >
-                        personal task manager
+                        {t('personal-task-manager-uppercase')}
                     </Typography>
 
                     <Header />
                     <Body />
                     <Typography variant="paragraph">
-                        This project is still in progress! Thank you for
-                        understanding.
+                        {t('project-in-progress')}
                     </Typography>
                 </div>
             </div>
