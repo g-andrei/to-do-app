@@ -13,7 +13,6 @@ interface TaskProps {
 }
 
 const Task = ({ id, task, variant, categoryText }: TaskProps) => {
-    console.log('🚀 ~ Task ~ task:', task);
     const dispatch = useAppDispatch();
 
     return (

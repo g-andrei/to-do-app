@@ -28,7 +28,8 @@ const Header = () => {
                     variant="paragraph"
                     style={{ color: colors.text.secondary }}
                 >
-                    {lengthOfTasks} {lengthOfTasks === 1 ? 'task' : 'tasks'}
+                    {lengthOfTasks}
+                    {lengthOfTasks === 1 ? t('task') : t('tasks')}
                 </Typography>
                 <Button onClick={() => dispatch(openAddEventModal(true))}>
                     {t('add-new-task')}
@@ -38,14 +39,14 @@ const Header = () => {
                     onClick={() => dispatch(clearCompletedTasks())}
                     disabled={lengthOfCompletedTasks === 0 ? true : false}
                 >
-                    Clear completed
+                    {t('clear-completed')}
                 </Button>
                 <Button
                     variant="secondary"
                     onClick={() => dispatch(deleteAllTasks())}
                     disabled={lengthOfTasks === 0 ? true : false}
                 >
-                    Clear all tasks
+                    {t('clear-all-tasks')}
                 </Button>
             </StyledContainer>
         </Card>

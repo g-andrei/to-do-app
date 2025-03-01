@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { taskValue } from 'src/slices';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Button, Card, Task, Typography } from 'src/components';
+import { taskValue } from 'src/slices';
 import { StyledBodyAppContiner } from './BodyApp.styled';
 
 const Body = () => {
+    const { t } = useTranslation();
     const allTasks = useSelector(taskValue);
-    console.log('🚀 ~ Body ~ allTasks:', allTasks);
+    
     const [filter, setFilter] = useState('All');
 
     const filterTasks = (task: { status: string }) => {
@@ -52,8 +54,8 @@ const Body = () => {
                 ) : (
                     <Typography variant="paragraph">
                         {filter === 'Completed'
-                            ? `You have no completed tasks.`
-                            : `You have no task to fulfill.`}
+                            ? t('no-completed-tasks')
+                            : t('no-tasks')}
                     </Typography>
                 )}
             </StyledBodyAppContiner>

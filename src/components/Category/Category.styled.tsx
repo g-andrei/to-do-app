@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { CategoryType } from '..';
+import { getCategoryType } from './constants';
 
 interface StyledCategoryProps {
     variant: string;
@@ -9,6 +9,7 @@ interface StyledCategoryProps {
 export const StyledCategory = styled.span<StyledCategoryProps>(
     ({ variant, isSelected, theme }) => {
         const { colors, spacings, sizes } = theme;
+        const CategoryType = getCategoryType();
 
         const getBackgroundColor = (variant: string) => {
             let color = '';
